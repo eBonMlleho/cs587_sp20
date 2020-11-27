@@ -1,0 +1,34 @@
+java-1.8.0-openjdk-1.8.0.242.b08-0.fc30.x86_64
+
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.fc30.x86_64/include   这里有jni.h
+
+JNI compile
+管用版本：
+javac HelloWorld.java
+javac -h . HelloWorld.java
+gcc -fPIC -I /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.fc30.x86_64/include -I /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.fc30.x86_64/include/linux -shared HelloWorldImp.c -o libhello.so
+
+JNI run:
+java HelloWorld
+
+如果有linkerror 加下面两行字：
+LD_LIBRARY_PATH=./
+export LD_LIBRARY_PATH
+
+要改C code 只用compile gcc 不用javac
+
+在java file 里面 System.loadLibrary("XXXX");  则在c compile 里面 后面加上 libXXXX.so
+如果里面是System.loadLibrary("hello"); 则在c compile 里面 后面加上 -o libhello.so
+
+
+
+
+RMI
+先compile java 在rmic 生成stub class
+javac SearchQuery.java
+rmic SearchQuery
+
+
+
+
+
